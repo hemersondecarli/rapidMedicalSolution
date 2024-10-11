@@ -1,1 +1,18 @@
 for generating ideas
+
+1 - speedVan alert application
+> this application would be funderised by its own users, allowing them to make and claim funds out of it, by simply spotting speed vans on the road(by tacking a photo / video), a GPS would track in real time their location, the more users spotting the same speedvan on the same location, the more reliable the information would be.
+>funds - only the 5 first users spotting the speed van of one location, would be funded for it.
+>VIP accounts - to have access to users speed van spots, users would have to pay for a VIP Account, that way they would help keep the funds go.
+
+
+2 - Health Assistant Application
+> developing a plataform to give health assist combined with AI to give quick Diagosis along with blockchain to keep the medical history of patients in a secure way.
+> these plataform would use machine learning to assist doctors and patients to take a decision.
+
+>Main functionalities.
+1- Registration and secured access
+2- Implement a authentication based on blockchain where every user would have its own and unique identity, granting privacy and security
+3- Integrate an AI system that analyzes reported symptoms and suggests preliminary diagnoses based on a vast medical database 
+4- Chronic Disease Prevention and Monitoring, Use machine learning to predict the progression of chronic diseases based on data collected over time, suggesting lifestyle changes or early interventions to prevent complications
+5- Automated reports- The system can generate automated follow-up reports and send them to doctors and patients. These reports may include AI predictions, treatment suggestions, and alerts on concerning data.
