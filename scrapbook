@@ -16,3 +16,4 @@ for generating ideas
 3- Integrate an AI system that analyzes reported symptoms and suggests preliminary diagnoses based on a vast medical database 
 4- Chronic Disease Prevention and Monitoring, Use machine learning to predict the progression of chronic diseases based on data collected over time, suggesting lifestyle changes or early interventions to prevent complications
 5- Automated reports- The system can generate automated follow-up reports and send them to doctors and patients. These reports may include AI predictions, treatment suggestions, and alerts on concerning data.
+6- Sentiment Analyzer implementation.
