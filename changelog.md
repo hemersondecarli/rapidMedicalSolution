@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - added changelog.md
 
-## [0.0.1] - 26/10/2024
+## [0.0.2] - 26/10/2024
 ### Added
 - added Login.html
 - added Login.css
