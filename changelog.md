@@ -15,3 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - added Login.html
 - added Login.css
 - added Login.js
+
+## [0.0.3] - 07/11/2024
+### Changes
+- added react library
+- login.html is now index.html
+- login.css is now index.css
