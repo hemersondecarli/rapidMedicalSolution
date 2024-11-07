@@ -21,3 +21,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - added react library
 - login.html is now index.html
 - login.css is now index.css
+
+## [0.0.4] - 07/11/2024
+### New Features + some changes
+- installed React Router
+- Added CreateAccount page & css
+- modified home/index page
+- added folders "assets/images <> components <> styles <> pages"
+- add some images for account registration background
+- code adjustments were made
+
+
