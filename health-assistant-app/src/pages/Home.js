@@ -10,8 +10,8 @@ function Home() {
         navigate('/login');
     };
 
-    const goToCreateAccount = () => {
-        navigate('/CreateAccount'); //route for the Create Account page
+    const goToRegistration = () => {
+        navigate('/Registration'); //route for the Create Account page
     };
 
     return (
@@ -19,7 +19,7 @@ function Home() {
             <h1>Welcome to the Health Assistant App</h1>
             <p>Get started by logging in or creating an account.</p>
             <button onClick={goToLogin} className="home-button">Already a User?</button>
-            <button onClick={goToCreateAccount} className="home-button">Create Account</button>
+            <button onClick={goToRegistration} className="home-button">Create Account</button>
         </div>
     );
 }

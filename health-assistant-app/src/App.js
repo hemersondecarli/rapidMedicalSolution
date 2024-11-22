@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/login';
 import Patient from './pages/Patient';
-import CreateAccount from './pages/CreateAccount'; // Ensure this is correctly imported
+import Registration from './pages/Registration'; 
 
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Patient" element={<Patient />} />
-        <Route path="/CreateAccount" element={<CreateAccount />} /> {/* Ensure this route is correct */}
+        <Route path="/Registration" element={<Registration />} /> {/* Route*/}
       </Routes>
     </Router>
   );
