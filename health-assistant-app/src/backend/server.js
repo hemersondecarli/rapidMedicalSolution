@@ -3,12 +3,14 @@ const bodyParser = require('body-parser');
 const connectDB = require('./db'); // MongoDB connection
 const userRoutes = require('./routes/userRoutes'); // User-related routes
 require('dotenv').config(); // Load environment variables
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5001; // Use PORT from .env or default to 5001
 
 // Middleware
 app.use(bodyParser.json()); // Parse JSON request bodies
+app.use(cors());
 
 // Connect to MongoDB
 connectDB();
@@ -21,6 +23,7 @@ app.use((err, req, res, next) => {
   console.error('Unhandled error:', err.message);
   res.status(500).json({ error: 'An internal server error occurred.' });
 });
+
 
 // Start the server
 app.listen(PORT, () => {
