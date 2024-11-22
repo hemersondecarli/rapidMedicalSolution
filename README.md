@@ -52,3 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Update
 - Added package.json dependencies
 
+## [0.0.6] - 22/11/2024
+### Added
+- User Registration (Hashes passwords using bcrypt before storing them securely)
+- User Login (Checks if the user exists in the database by email)
