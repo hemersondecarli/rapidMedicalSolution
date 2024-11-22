@@ -56,3 +56,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - User Registration (Hashes passwords using bcrypt before storing them securely)
 - User Login (Checks if the user exists in the database by email)
+
+## [0.0.7] - 22/11/2024
+### Added
+- **User Registration:**
+    - Frontend registration form (`src/pages/Registration.js`) with:
+    - Validation for all fields.
+    - Password confirmation validation.
+    - Dynamic success and error message display.
+    - Backend registration API (`/register`) in `userRoutes.js`:
+    - Validates input fields (name, email, password, gpName).
+    - Ensures passwords match before storing user data.
+    - Hashes passwords securely before saving to MongoDB.
+    - Stores the user's general practitioner's name (`gpName`).
+- **API Integration:**
+  - Axios instance in `src/services/api.js` to handle API requests.
+  - Frontend sends data to `http://localhost:5001/api/users/register` for user registration.
+### Fixed
+- **CORS Issues:**
+  - Added `cors` middleware to `server.js` to allow cross-origin requests from the React frontend.
+
+### Changed
+- Updated `User` model (`models/User.js`) to include a `gpName` field.
+
