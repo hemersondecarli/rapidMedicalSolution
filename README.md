@@ -6,10 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Explanation of the recommended reverse chronological release ordering.
 ### For personal use
-https://account.mongodb.com/account/login
-https://web.postman.co/
-node server.js
-npm start
+- https://account.mongodb.com/account/login
+- https://web.postman.co/
+- node server.js
+- npm start
 
 ## [0.0.1] - 11/10/2024
 ### Added
