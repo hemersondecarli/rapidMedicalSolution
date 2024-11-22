@@ -5,69 +5,78 @@ const router = express.Router();
 
 // Register a new user
 router.post('/register', async (req, res) => {
-  const { name, email, password } = req.body;
+    const { name, email, password, confirmPassword, gpName } = req.body;
 
-  // Validate input fields
-  if (!name || !email || !password) {
-    return res.status(400).json({ message: 'All fields are required' });
-  }
+    // Log the request body for debugging
+    console.log('Request Body:', req.body);
 
-  try {
-    // Check if the user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({ message: 'Email already registered' });
+    // Validate input fields
+    if (!name || !email || !password || !gpName) {
+        return res.status(400).json({ message: 'All fields are required' });
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Validate passwords match
+    if (password !== confirmPassword) {
+        return res.status(400).json({ message: 'Passwords do not match' });
+    }
 
-    // Create a new user
-    const newUser = new User({
-      name,
-      email,
-      password: hashedPassword,
-    });
+    try {
+        // Check if the user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email already registered' });
+        }
 
-    await newUser.save();
-    res.status(201).json({ message: 'User registered successfully' });
-  } catch (error) {
-    console.error('Error in /register route:', error.message);
-    res.status(500).json({ message: 'Server error' });
-  }
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create a new user
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword,
+            gpName,
+        });
+
+        await newUser.save();
+        res.status(201).json({ message: 'User registered successfully' });
+    } catch (error) {
+        console.error('Error in /register route:', error.message);
+        res.status(500).json({ message: 'Server error' });
+    }
 });
 
 // User login
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
+    const { email, password } = req.body;
 
-  // Validate input fields
-  if (!email || !password) {
-    return res.status(400).json({ message: 'Please enter your Email and password' });
-  }
-
-  try {
-    // Check if the user exists
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+    // Validate input fields
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Please enter your Email and password' });
     }
 
-    // Compare the password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Wrong password' });
-    }
+    try {
+        // Check if the user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
 
-    // Return success response
-    res.status(200).json({
-      message: 'Login successful',
-      user: { name: user.name, email: user.email },
-    });
-  } catch (error) {
-    console.error('Error in /login route:', error.message);
-    res.status(500).json({ message: 'Server error' });
-  }
+        // Compare the password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Wrong password' });
+        }
+
+        // Return success response
+        res.status(200).json({
+            message: 'Login successful',
+            user: { name: user.name, email: user.email, gpName: user.gpName },
+        });
+    } catch (error) {
+        console.error('Error in /login route:', error.message);
+        res.status(500).json({ message: 'Server error' });
+    }
 });
 
 module.exports = router;
