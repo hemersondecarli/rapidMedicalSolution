@@ -1,26 +1,28 @@
-// src/pages/Dashboard.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Dashboard.css';
 
 function Dashboard() {
     const navigate = useNavigate();
 
-    // Handle user logout
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Clear the token from local storage
-        navigate('/login'); // Redirect to the login page
+        localStorage.removeItem('user'); // Clear user data
+        navigate('/login'); // Redirect to login page
     };
 
+    const user = JSON.parse(localStorage.getItem('user'));
+// Dashboard
     return (
-        <div className="dashboard-container">
-            <h1>Welcome to Your Dashboard</h1>
-            <p>Here, you can manage your profile and track your health.</p>
+        <div>
+            <h1>Welcome <strong></strong> {user.name}</h1>
+            {user && (
+                <div>
+                    <p><strong>Name:</strong> {user.name}</p>
+                    <p><strong>Email:</strong> {user.email}</p>
 
-            {/* Logout Button */}
-            <button className="logout-button" onClick={handleLogout}>
-                Logout
-            </button>
+                    <button onClick={handleLogout}>Logout</button>
+                </div>
+            )}
+            {!user && <p>No user details available.</p>}
         </div>
     );
 }

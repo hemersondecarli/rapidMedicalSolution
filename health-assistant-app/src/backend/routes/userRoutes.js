@@ -4,45 +4,43 @@ const User = require('../models/User'); // Import User model
 const router = express.Router();
 
 // Register a new user
-router.post('/register', async (req, res) => {
-    console.log('debugging request body', req.body); // Log incoming data
+router.post('/login', async (req, res) => {
+    console.log('Login request body:', req.body); // Log incoming request data
 
-    const { name, email, password, confirmPassword, gpName } = req.body;
+    const { email, password } = req.body;
 
     // Validate input fields
-    if (!name || !email || !password || !confirmPassword || !gpName) {
-        return res.status(400).json({ message: 'All fields are required' });
-    }
-
-    // Validate matching passwords
-    if (password !== confirmPassword) {
-        return res.status(400).json({ message: 'Passwords do not match' });
+    if (!email || !password) {
+        console.log('Missing email or password');
+        return res.status(400).json({ message: 'Please enter your Email and password' });
     }
 
     try {
-        // Check if the user already exists
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'Email already registered' });
+        // Check if the user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            console.log('User not found with email:', email);
+            return res.status(404).json({ message: 'User not found' });
         }
 
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        // Compare the password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            console.log('Invalid password for user:', email);
+            return res.status(401).json({ message: 'Wrong password' });
+        }
 
-        // Create a new user
-        const newUser = new User({
-            name,
-            email,
-            password: hashedPassword,
-            gpName,
+        // Success
+        console.log('User logged in successfully:', user);
+        res.status(200).json({
+            message: 'Login successful',
+            user: { name: user.name, email: user.email },
         });
-
-        await newUser.save();
-        res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
-        console.error('Error in /register route:', error.message);
+        console.error('Error in login route:', error.message);
         res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 module.exports = router;
