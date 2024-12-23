@@ -30,13 +30,13 @@ function Login() {
             const response = await api.post('/users/login', formData);
             setMessage(response.data.message);
 
-            // Save user details in local storage (optional)
+            // Save user details in localStorage, including gpName
             localStorage.setItem('user', JSON.stringify(response.data.user));
 
-            // Redirect to another page (e.g., User Dashboard)
-            navigate('/dashboard'); // Replace '/dashboard' with the route to your desired page
+            // Redirect to another page - this cash dashboard
+            navigate('/dashboard');
         } catch (error) {
-            console.error('Login error:', error.response?.data || error.message);
+            console.error('Error during login:', error.response?.data || error.message);
             setError(error.response?.data?.message || 'An error occurred during login');
         }
     };
