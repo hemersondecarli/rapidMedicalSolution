@@ -14,7 +14,7 @@ function Login() {
 
                 <button type="submit">Login</button>
                 <a href="#" className="forgot_pw_link">Forgot your password?</a>
-                <a href="register.html" className="create-account-link">Create Account</a>
+                <a href="Registration" className="create-account-link">Create Account</a>
             </form>
         </div>
     );
