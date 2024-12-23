@@ -1,10 +1,10 @@
 // src/pages/Registration.js
 import React, { useState } from 'react';
 import '../styles/Registration.css';
-import api from '../services/api'; // Axios instance for making API requests
+import api from '../services/api'; // Axios instance for backend API calls
 
 function Registration() {
-    // State to manage form inputs and messages
+    // State to manage form data
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -12,20 +12,26 @@ function Registration() {
         confirmPassword: '',
         gp: '',
     });
+
     const [message, setMessage] = useState(''); // Success message
     const [error, setError] = useState(''); // Error message
 
     // Handle input changes
     const handleChange = (e) => {
-        const { name, value } = e.target; // Get the input's name and value
-        setFormData({ ...formData, [name]: value }); // Update formData state
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
     };
 
     // Handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent page refresh
-        setMessage(''); // Clear previous success message
-        setError(''); // Clear previous error message
+        e.preventDefault();
+        setMessage('');
+        setError('');
+
+        console.log('Form Data Sent to Backend:', formData);
 
         // Validate passwords
         if (formData.password !== formData.confirmPassword) {
@@ -39,19 +45,21 @@ function Registration() {
             return;
         }
 
-        try {
-            // Send form data to the backend
-            const response = await api.post('/users/register', {
-                name: formData.name,
-                email: formData.email,
-                password: formData.password,
-                gpName: formData.gp, // Backend expects gpName
-            });
+        // Prepare data for the backend
+        const userData = {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            confirmPassword: formData.confirmPassword,
+            gpName: formData.gp,
+        };
 
-            setMessage(response.data.message); // Show success message
-            setFormData({ name: '', email: '', password: '', confirmPassword: '', gp: '' }); // Clear the form
+        try {
+            const response = await api.post('/users/register', userData);
+            setMessage(response.data.message);
+            setFormData({ name: '', email: '', password: '', confirmPassword: '', gp: '' });
         } catch (error) {
-            // Show error message from the backend or a generic one
+            console.error('Error during registration:', error.response?.data || error.message);
             setError(error.response?.data?.message || 'An error occurred');
         }
     };
@@ -59,8 +67,7 @@ function Registration() {
     return (
         <div className="create-account-container">
             <h2>Create Account</h2>
-            <form onSubmit={handleSubmit}>
-                {/* Input for Full Name */}
+            <form id="RegistrationForm" onSubmit={handleSubmit}>
                 <label htmlFor="name">Full Name:</label>
                 <input
                     type="text"
@@ -72,7 +79,6 @@ function Registration() {
                     required
                 />
 
-                {/* Input for Email */}
                 <label htmlFor="email">Email:</label>
                 <input
                     type="email"
@@ -84,7 +90,6 @@ function Registration() {
                     required
                 />
 
-                {/* Input for Password */}
                 <label htmlFor="password">Password:</label>
                 <input
                     type="password"
@@ -96,7 +101,6 @@ function Registration() {
                     required
                 />
 
-                {/* Input for Confirm Password */}
                 <label htmlFor="confirmPassword">Confirm Password:</label>
                 <input
                     type="password"
@@ -108,7 +112,6 @@ function Registration() {
                     required
                 />
 
-                {/* Input for General Practitioner */}
                 <label htmlFor="gp">Enter your GP:</label>
                 <input
                     type="text"
@@ -120,11 +123,10 @@ function Registration() {
                     required
                 />
 
-                {/* Submit Button */}
                 <button type="submit" className="submit-button">Create Account</button>
             </form>
 
-            {/* Display success or error messages */}
+            {/* Display messages */}
             {message && <p style={{ color: 'green' }}>{message}</p>}
             {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
