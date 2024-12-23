@@ -13,6 +13,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Frontend Start Command:** `npm start`
 
 ---
+## [0.0.8] - 23/12/2024
+### Added
+
+- **Dashboard Page**:
+  - Created a user dashboard to display:
+    - User’s full name.
+    - User’s email address.
+    - User’s GP name.
+  - Added a logout button that clears the user's session and redirects to the login page.
+
+- **Improved Backend Error Handling**:
+  - Added detailed logging for errors in the backend login route.
+  - Improved response messages for scenarios such as:
+    - Missing credentials.
+    - User not found.
+    - Incorrect password.
+
+- **Change Password Functionality**
+- Users can update their password while logged in.
+- Added a backend route to handle password updates securely.
+- Passwords are hashed before being updated in the database.
+
+- **Login Updates**:
+  - Updated backend login route to include the user's GP name (`gpName`) in the response.
+  - Enhanced frontend login logic to save user details (name, email, GP name) upon successful login.
+---
 
 ## [0.0.7] - 22/11/2024
 ### Added
@@ -24,7 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Backend registration API (`/register`) in `userRoutes.js`:
       - Validates input fields (`name`, `email`, `password`, `gpName`).
       - Ensures passwords match before storing user data.
-      - Hashes passwords securely before saving to MongoDB.
+      - Hashes passwords securely before saving to MongoDB - Bcrypt.
       - Stores the user's general practitioner's name (`gpName`).
 - **API Integration:**
   - Axios instance in `src/services/api.js` to handle API requests.
