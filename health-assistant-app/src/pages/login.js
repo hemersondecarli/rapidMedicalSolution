@@ -1,11 +1,10 @@
-// src/pages/Login.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import { useNavigate } from 'react-router-dom'; // For navigation
 import '../styles/Login.css';
 import api from '../services/api'; // Axios instance
 
 function Login() {
-    const navigate = useNavigate(); // Hook for navigation
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -30,10 +29,10 @@ function Login() {
             const response = await api.post('/users/login', formData);
             setMessage(response.data.message);
 
-            // Save user details in localStorage, including gpName
+            // Store user details in localStorage
             localStorage.setItem('user', JSON.stringify(response.data.user));
 
-            // Redirect to another page - this cash dashboard
+            // Redirect to dashboard
             navigate('/dashboard');
         } catch (error) {
             console.error('Error during login:', error.response?.data || error.message);
