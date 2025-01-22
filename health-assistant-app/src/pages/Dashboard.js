@@ -6,6 +6,7 @@ function Dashboard() {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
 
+    const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
@@ -23,9 +24,11 @@ function Dashboard() {
         try {
             const response = await api.post('/users/change-password', {
                 email: user.email,
+                oldPassword,
                 newPassword,
             });
             setMessage(response.data.message);
+            setOldPassword('');
             setNewPassword('');
         } catch (error) {
             console.error('Error changing password:', error.response?.data || error.message);
@@ -44,6 +47,15 @@ function Dashboard() {
                     <button onClick={handleLogout}>Logout</button>
 
                     <form onSubmit={handleChangePassword}>
+                        <label htmlFor="oldPassword">Old Password:</label>
+                        <input
+                            type="password"
+                            id="oldPassword"
+                            value={oldPassword}
+                            onChange={(e) => setOldPassword(e.target.value)}
+                            required
+                        />
+
                         <label htmlFor="newPassword">New Password:</label>
                         <input
                             type="password"
@@ -52,6 +64,7 @@ function Dashboard() {
                             onChange={(e) => setNewPassword(e.target.value)}
                             required
                         />
+
                         <button type="submit">Change Password</button>
                     </form>
 
