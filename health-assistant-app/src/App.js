@@ -6,6 +6,13 @@ import Login from './pages/Login';
 import Registration from './pages/Registration';
 import Dashboard from './pages/Dashboard'; // Import Dashboard page
 
+import Diagnosis from './pages/Diagnosis';
+import PlaceOrders from './pages/PlaceOrders';
+import Medications from './pages/Medications';
+import MenstrualTracker from './pages/MenstrualTracker';
+import MentalSupport from './pages/MentalSupport';
+import AIDiagnosis from './pages/AIDiagnosis';
+
 function App() {
     return (
         <Router>
@@ -18,5 +25,15 @@ function App() {
         </Router>
     );
 }
+
+<Routes>
+    {/* Existing Routes */}
+    <Route path="/diagnosis" element={<Diagnosis />} />
+    <Route path="/place-orders" element={<PlaceOrders />} />
+    <Route path="/medications" element={<Medications />} />
+    <Route path="/menstrual-tracker" element={<MenstrualTracker />} />
+    <Route path="/mental-support" element={<MentalSupport />} />
+    <Route path="/ai-diagnosis" element={<AIDiagnosis />} />
+</Routes>
 
 export default App;
