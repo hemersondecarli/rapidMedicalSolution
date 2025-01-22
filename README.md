@@ -12,6 +12,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Backend Start Command:** `node server.js`
 - **Frontend Start Command:** `npm start`
 
+
+---
+## [0.0.9] -20/01/2025 - 22/01/2025
+### Added
+- fields to accept the old password and the new password for the user.
+
+### Fixed
+- Change password issues.
+- solved an error that was causing either the login / registration to fail.
+
+### Changed
+- It now checks for the old password validity before hashing and updating the new password.
+
 ---
 ## [0.0.8] - 23/12/2024
 ### Added
