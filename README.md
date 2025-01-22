@@ -14,6 +14,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ---
+## [0.10.0] - 22/01/2025
+### Added
+- **buttons on the Dashboard for the following functionalities**
+- Diagnosis
+- Place Orders
+- List of Medications
+- Menstrual Cycle Tracker
+- Nurse 24/7 and Mental Health Support
+- AI Pre-Diagnosis
+
+- Integrated a calendar widget on the right side of the Dashboard.
+
+### New Feature
+- Added a Change Password form that appears only when the user clicks a "Change Password" button.
+- The form requires the user to input their current password and the new password.
+
+### General Fixes
+- Resolved errors with registration and login functionalities by debugging the backend (userRoutes.js) and ensuring data validation.
+
+---
 ## [0.0.9] -20/01/2025 - 22/01/2025
 ### Added
 - fields to accept the old password and the new password for the user.
