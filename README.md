@@ -14,6 +14,74 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ---
+## [0.10.1] - 29/01/2025
+### **🆕 New Features**
+- **AI Pre-Diagnosis Chat (`AIDiagnosis.js`)**
+  - Implemented an **interactive AI chat system** for symptom analysis.
+  - AI **welcomes the user** with `"Hello! How are you feeling today?"` after a **short delay**.
+  - AI **processes symptoms** and provides **preliminary diagnoses**.
+  - **AI typing effect added** before AI responds.
+
+- **Hints Section in AI Chat**
+  - **New hints added above the chatbox** to suggest **questions users can ask**.
+  - Example hints:
+    - `"I have a headache, what could it be?"`
+    - `"I've been coughing for 3 days, should I worry?"`
+
+- **Expanded Symptom Recognition (`aiRoutes.js`)**
+  - AI can now detect and provide responses for:
+    - **Fever, Cough, Headaches, Dizziness, Sore Throat**
+    - **Stomach Pain, Chest Pain, Fatigue, Shortness of Breath, Nausea**
+
+---
+
+### **✨ Added**
+- **AI Diagnosis Backend (`aiRoutes.js`)**
+  - New `/api/ai/diagnose` API route to process user symptoms.
+
+- **New UI Design for AI Chat (`AIDiagnosis.css`)**
+  - **Chatbox redesigned** 
+  - **AI messages in yellow**, **User messages in blue**.
+  - **Typing animation added** to simulate AI "thinking."
+
+- **Routing Updates (`app.js`)**
+  - **Connected `AIDiagnosis.js`** to the main app.
+  - Fixed **navigation paths** for smoother user experience.
+
+---
+
+### **🐛 Fixed**
+- **AI Not Responding Issue**
+  - Fixed a bug where AI **did not return a diagnosis** after receiving symptoms.
+  - Ensured **proper API response handling** in `AIDiagnosis.js`.
+
+- **Chat Messages Not Auto-Scrolling**
+  - Fixed an issue where **new messages did not scroll into view**.
+  - The chatbox **now automatically scrolls** when a new message is added.
+
+- **API Error Handling**
+  - **Better handling of API failures** (now shows `"Error processing request. Please try again later."` instead of failing silently).
+  - AI now **asks for more details** if symptoms are unclear.
+
+---
+
+### **🔄 Changed**
+- **Improved AI Responses (`aiRoutes.js`)**
+  - AI now provides **more human-like, conversational responses**.
+  - Example:
+    - Before: `"You may have a fever."`
+    - Now: `"It could be a common cold, flu, or infection. Monitor your temperature and stay hydrated. If it persists, consult a doctor."`
+
+- **Enhanced User Experience in AI Chat (`AIDiagnosis.js`)**
+  - **AI now takes a short pause before responding**, making the chat feel more natural.
+  - **More detailed responses added** to make the AI more helpful.
+
+- **Updated Backend (`server.js`)**
+  - **Ensured AI routes (`aiRoutes.js`) were properly connected**.
+  - **Fixed missing API errors** by handling request failures.
+  - **Enabled CORS** to allow frontend-backend communication.
+
+---
 ## [0.10.0] - 22/01/2025
 ### Added
 - **buttons on the Dashboard for the following functionalities**
