@@ -21,6 +21,8 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/registration" element={<Registration />} />
                 <Route path="/dashboard" element={<Dashboard />} /> {/* Add Dashboard Route */}
+                <Route path="/ai-diagnosis" element={<AIDiagnosis />} /> {/* AI Route */}
+        
             </Routes>
         </Router>
     );
