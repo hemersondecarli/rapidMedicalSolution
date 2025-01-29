@@ -1,23 +1,20 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
-const connectDB = require('./db'); // MongoDB connection
-const userRoutes = require('./routes/userRoutes'); // Import user routes
+const connectDB = require('./db'); // MongoDB Connection
+const userRoutes = require('./routes/userRoutes');
+const aiRoutes = require('./routes/aiRoutes');
+
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json()); // Required to parse JSON requests
 
-// Connect to MongoDB
-connectDB();
-
-// Use user routes
+// API Routes
 app.use('/api/users', userRoutes);
+app.use('/api/ai', aiRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-});
+connectDB(); //  MongoDB
+app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
