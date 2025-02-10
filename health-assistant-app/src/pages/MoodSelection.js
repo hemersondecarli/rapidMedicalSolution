@@ -10,25 +10,24 @@ function MoodSelection() {
     const [mood, setMood] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const [isLoading, setIsLoading] = useState(true); // ✅ New state for checking if mood exists
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (!user) {
-            navigate('/login'); // ✅ If user is not logged in, send to login
+            navigate('/login');
             return;
         }
 
-        // ✅ Check if today's mood is already recorded
         const checkMood = async () => {
             try {
                 const response = await api.get(`/users/mood-selection/${user.id}`);
                 if (response.data.moodLogged) {
-                    navigate('/dashboard'); // ✅ Skip mood selection if already logged
+                    navigate('/dashboard');
                 }
             } catch (error) {
                 console.error('Error checking mood:', error);
             } finally {
-                setIsLoading(false); // ✅ Hide loading state once check is done
+                setIsLoading(false);
             }
         };
 
@@ -47,7 +46,7 @@ function MoodSelection() {
 
         try {
             await api.post('/users/mood-selection', { userId: user.id, mood });
-            navigate('/dashboard'); // ✅ Redirect after mood submission
+            navigate('/dashboard');
         } catch (error) {
             console.error('Error saving mood:', error.response?.data || error.message);
             setError(error.response?.data?.message || 'An error occurred while saving your mood.');
@@ -57,25 +56,36 @@ function MoodSelection() {
     return (
         <div className="mood-container">
             {isLoading ? (
-                <p>Checking mood status...</p> // ✅ Show loading message
+                <div className="loading">Checking mood status...</div>
             ) : (
-                <>
-                    <h2>Hello, {user.name}! How are you feeling today?</h2>
+                <div className="mood-card">
+                    <h1>👋 Hey {user.name}, How are you feeling today?</h1>
                     <form onSubmit={handleSubmit} className="mood-form">
-                        <select value={mood} onChange={(e) => setMood(e.target.value)} required>
-                            <option value="">Select Mood</option>
-                            <option value="Happy">😊 Happy</option>
-                            <option value="Neutral">😐 Neutral</option>
-                            <option value="Sad">😢 Sad</option>
-                            <option value="Anxious">😟 Anxious</option>
-                            <option value="Excited">😃 Excited</option>
-                            <option value="Stressed">😰 Stressed</option>
-                        </select>
-                        <button type="submit">Submit</button>
+                        <div className="mood-options">
+                            <button type="button" className={`mood-btn ${mood === 'Happy' ? 'selected' : ''}`} onClick={() => setMood('Happy')}>
+                                😊 Happy
+                            </button>
+                            <button type="button" className={`mood-btn ${mood === 'Neutral' ? 'selected' : ''}`} onClick={() => setMood('Neutral')}>
+                                😐 Neutral
+                            </button>
+                            <button type="button" className={`mood-btn ${mood === 'Sad' ? 'selected' : ''}`} onClick={() => setMood('Sad')}>
+                                😢 Sad
+                            </button>
+                            <button type="button" className={`mood-btn ${mood === 'Anxious' ? 'selected' : ''}`} onClick={() => setMood('Anxious')}>
+                                😟 Anxious
+                            </button>
+                            <button type="button" className={`mood-btn ${mood === 'Excited' ? 'selected' : ''}`} onClick={() => setMood('Excited')}>
+                                😃 Excited
+                            </button>
+                            <button type="button" className={`mood-btn ${mood === 'Stressed' ? 'selected' : ''}`} onClick={() => setMood('Stressed')}>
+                                😰 Stressed
+                            </button>
+                        </div>
+                        <button type="submit" className="submit-mood-btn">Submit Mood</button>
                     </form>
                     {message && <p className="success">{message}</p>}
                     {error && <p className="error">{error}</p>}
-                </>
+                </div>
             )}
         </div>
     );
