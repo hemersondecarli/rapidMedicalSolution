@@ -1,9 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const User = require('../models/User'); // Import the User model
+const User = require('../models/User'); // User model
+const Sentiment = require('../models/Sentiment'); // Sentiment model for mood tracking
 const router = express.Router();
 
-// Register a new user
+// ✅ Register a new user
 router.post('/register', async (req, res) => {
     const { name, email, password, confirmPassword, gpName } = req.body;
 
@@ -32,11 +33,12 @@ router.post('/register', async (req, res) => {
         await newUser.save();
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
+        console.error('Error during registration:', error.message);
         res.status(500).json({ message: 'Server error' });
     }
 });
 
-// Login a user
+// ✅ User Login
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -58,17 +60,78 @@ router.post('/login', async (req, res) => {
         res.status(200).json({
             message: 'Login successful',
             user: {
+                id: user._id,
                 name: user.name,
                 email: user.email,
                 gpName: user.gpName,
             },
         });
     } catch (error) {
+        console.error('Error during login:', error.message);
         res.status(500).json({ message: 'Server error' });
     }
 });
 
-// Change user Password
+// ✅ Check if user has already logged mood for today
+router.get('/mood-selection/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    if (!userId) {
+        return res.status(400).json({ message: 'User ID is required' });
+    }
+
+    try {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const existingMood = await Sentiment.findOne({ userId, date: { $gte: today } });
+
+        if (existingMood) {
+            return res.status(200).json({ moodLogged: true, mood: existingMood.mood });
+        } else {
+            return res.status(200).json({ moodLogged: false });
+        }
+    } catch (error) {
+        console.error('Error checking mood:', error.message);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// ✅ Mood Tracking (Ensuring API Route is Correct)
+router.post('/mood-selection', async (req, res) => {
+    const { userId, mood } = req.body;
+
+    if (!userId || !mood) {
+        return res.status(400).json({ message: 'User ID and mood are required' });
+    }
+
+    try {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        // Check if mood is already logged for today
+        const existingMood = await Sentiment.findOne({ userId, date: { $gte: today } });
+
+        if (existingMood) {
+            return res.status(400).json({ message: 'Mood for today is already logged' });
+        }
+
+        // Save new mood entry
+        const newMoodEntry = new Sentiment({
+            userId,
+            mood,
+            date: new Date(),
+        });
+
+        await newMoodEntry.save();
+        res.status(201).json({ message: 'Mood recorded successfully', mood: newMoodEntry });
+    } catch (error) {
+        console.error('Error recording mood:', error.message);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// ✅ Change Password
 router.post('/change-password', async (req, res) => {
     const { email, currentPassword, newPassword } = req.body;
 
@@ -99,6 +162,5 @@ router.post('/change-password', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
-
 
 module.exports = router;
