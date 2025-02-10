@@ -11,9 +11,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Postman:** [https://web.postman.co/](https://web.postman.co/)
 - **Backend Start Command:** `node server.js`
 - **Frontend Start Command:** `npm start`
-
+---
+## [0.10.3] - 04/02/2025 - 10/02/2025      
+### **🆕 Added**
+- **Mood Selection Flow**: Users must now log their mood daily before accessing the dashboard.
+- **New `Sentiment` Model**: Stores users' mood entries with timestamps to prevent duplicate logging.
+- **New `sentimentRoutes.js`**: API routes for handling mood tracking.
+- **Mood Tracking UI in `Dashboard.js`**: Displays the most recent logged mood.
+- **Redirect Logic in `Login.js`**: Users are redirected to mood selection after logging in.
 
 ---
+
+### **🛠 Fixed**
+- **Mood Duplication Prevention**: Ensured users can only submit one mood log per day.
+- **Login Redirection Issue**: Users who already logged their mood are now taken directly to the dashboard.
+
+---
+
+### **✨ New Features**
+- **Mood Check Before Dashboard Access**: If a user hasn't logged a mood, they are redirected.
+- **API Route to Check Existing Mood Log**: Skips mood selection if today's mood was already recorded.
+- **Dynamic Mood Display on Dashboard**: Shows `Not Recorded` if mood hasn't been set.
+---
+
 ## [0.10.1] - 29/01/2025
 ### **🆕 New Features**
 - **AI Pre-Diagnosis Chat (`AIDiagnosis.js`)**
