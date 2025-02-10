@@ -1,49 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Calendar from 'react-calendar'; // Calendar for dashboard
-import 'react-calendar/dist/Calendar.css'; // Calendar styles
-import '../styles/Dashboard.css'; // Custom Dashboard styles
-import api from '../services/api'; // Axios instance
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import '../styles/Dashboard.css';
+import api from '../services/api';
 
 function Dashboard() {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
 
-    const [showChangePassword, setShowChangePassword] = useState(false); // Toggle visibility
+    const [showChangePassword, setShowChangePassword] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
-    const [date, setDate] = useState(new Date()); // Calendar state
+    const [passwordMessage, setPasswordMessage] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
+    const [mood, setMood] = useState(user?.mood || '');
+    const [moodMessage, setMoodMessage] = useState('');
+    const [moodError, setMoodError] = useState('');
+
+    const [date, setDate] = useState(new Date());
+
+    useEffect(() => {
+        // ✅ Check if mood is already logged; otherwise, redirect to mood selection
+        if (!user) {
+            navigate('/login');
+        } else {
+            api.get(`/users/mood-selection/${user.id}`)
+                .then(response => {
+                    if (!response.data.moodLogged) {
+                        navigate('/mood-selection');
+                    } else {
+                        setMood(response.data.mood);
+                    }
+                })
+                .catch(error => console.error('Error checking mood:', error.message));
+        }
+    }, [user, navigate]);
 
     const handleLogout = () => {
-        localStorage.removeItem('user'); // Clear user session
-        navigate('/login'); // Redirect to login page
+        localStorage.removeItem('user');
+        navigate('/login');
     };
 
+    // ✅ Handle Change Password
     const handleChangePassword = async (e) => {
         e.preventDefault();
-        setMessage('');
-        setError('');
+        setPasswordMessage('');
+        setPasswordError('');
 
         if (!currentPassword || !newPassword) {
-            setError('All fields are required');
+            setPasswordError('All fields are required');
             return;
         }
 
         try {
             const response = await api.post('/users/change-password', {
-                email: user.email, // Send the user's email
-                currentPassword, // Send current password
-                newPassword, // Send new password
+                email: user.email,
+                currentPassword,
+                newPassword,
             });
-            setMessage(response.data.message);
+            setPasswordMessage(response.data.message);
             setCurrentPassword('');
-            setNewPassword(''); // Clear the password fields
-            setShowChangePassword(false); // Hide the form after successful change
+            setNewPassword('');
+            setShowChangePassword(false);
         } catch (error) {
-            console.error('Error changing password:', error.response?.data || error.message);
-            setError(error.response?.data?.message || 'An error occurred');
+            setPasswordError(error.response?.data?.message || 'An error occurred');
         }
     };
 
@@ -55,13 +77,33 @@ function Dashboard() {
             </header>
 
             <div className="dashboard-main">
+                {/* ✅ Left Panel - User Details */}
                 <div className="dashboard-info">
                     <h2>Your Details</h2>
                     <p><strong>Name:</strong> {user.name}</p>
                     <p><strong>Email:</strong> {user.email}</p>
                     <p><strong>GP Name:</strong> {user.gpName}</p>
+                    <p><strong>Today's Mood:</strong> {mood || 'Not recorded'}</p>
 
-                    {/* Toggle Change Password Form */}
+                    {/* ✅ Mood Selection (Optional After Login) */}
+                    <div className="mood-section">
+                        <h3>How are you feeling today?</h3>
+                        <select value={mood} onChange={(e) => setMood(e.target.value)}>
+                            <option value="">Select Mood</option>
+                            <option value="Happy">😊 Happy</option>
+                            <option value="Neutral">😐 Neutral</option>
+                            <option value="Sad">😢 Sad</option>
+                            <option value="Anxious">😟 Anxious</option>
+                            <option value="Excited">😃 Excited</option>
+                            <option value="Stressed">😰 Stressed</option>
+                        </select>
+                        <button disabled={!!mood} className="mood-submit-btn">Mood Recorded</button>
+
+                        {moodMessage && <p style={{ color: 'green' }}>{moodMessage}</p>}
+                        {moodError && <p style={{ color: 'red' }}>{moodError}</p>}
+                    </div>
+
+                    {/* ✅ Toggle Change Password Form */}
                     <button
                         className="toggle-password-button"
                         onClick={() => setShowChangePassword(!showChangePassword)}
@@ -69,7 +111,7 @@ function Dashboard() {
                         {showChangePassword ? 'Hide Change Password' : 'Change Password'}
                     </button>
 
-                    {/* Change Password Form */}
+                    {/* ✅ Change Password Form */}
                     {showChangePassword && (
                         <form onSubmit={handleChangePassword} className="password-change-form">
                             <h2>Change Password</h2>
@@ -93,12 +135,13 @@ function Dashboard() {
                             />
                             <button type="submit" className="password-change-button">Change Password</button>
 
-                            {message && <p style={{ color: 'green' }}>{message}</p>}
-                            {error && <p style={{ color: 'red' }}>{error}</p>}
+                            {passwordMessage && <p style={{ color: 'green' }}>{passwordMessage}</p>}
+                            {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
                         </form>
                     )}
                 </div>
 
+                {/* ✅ Dashboard Navigation Cards */}
                 <div className="dashboard-grid">
                     <div className="dashboard-card" onClick={() => navigate('/diagnosis')}>
                         <h3>Diagnosis</h3>
@@ -126,6 +169,7 @@ function Dashboard() {
                     </div>
                 </div>
 
+                {/* ✅ Calendar */}
                 <div className="dashboard-calendar">
                     <h2>Calendar</h2>
                     <Calendar onChange={setDate} value={date} />
