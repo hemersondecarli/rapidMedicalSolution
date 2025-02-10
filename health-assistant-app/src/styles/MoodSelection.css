@@ -1,0 +1,64 @@
+/* Mood Selection Page Styling */
+.mood-selection-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: #f4f4f9;
+    font-family: Arial, sans-serif;
+}
+
+.mood-selection-container h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Mood Dropdown */
+.mood-selection-container select {
+    width: 250px;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    background: #fff;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.mood-selection-container select:hover {
+    border-color: #0056b3;
+}
+
+/* Submit Button */
+.mood-selection-container button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.mood-selection-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Success and Error Messages */
+.mood-selection-container p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.mood-selection-container p.success {
+    color: green;
+}
+
+.mood-selection-container p.error {
+    color: red;
+}
