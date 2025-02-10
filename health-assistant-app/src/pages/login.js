@@ -32,8 +32,8 @@ function Login() {
             // Store user details in localStorage
             localStorage.setItem('user', JSON.stringify(response.data.user));
 
-            // Redirect to dashboard
-            navigate('/dashboard');
+            // ✅ Redirect user to Mood Selection BEFORE going to Dashboard
+            navigate('/mood-selection');
         } catch (error) {
             console.error('Error during login:', error.response?.data || error.message);
             setError(error.response?.data?.message || 'An error occurred during login');
