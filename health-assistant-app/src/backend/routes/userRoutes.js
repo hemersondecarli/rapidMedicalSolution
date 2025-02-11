@@ -4,7 +4,7 @@ const User = require('../models/User'); // User model
 const Sentiment = require('../models/Sentiment'); // Sentiment model for mood tracking
 const router = express.Router();
 
-// ✅ Register a new user
+// Register a new user
 router.post('/register', async (req, res) => {
     const { name, email, password, confirmPassword, gpName } = req.body;
 
@@ -38,7 +38,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// ✅ User Login
+// User Login
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -72,7 +72,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// ✅ Check if user has already logged mood for today
+// Check if user has already logged mood for today
 router.get('/mood-selection/:userId', async (req, res) => {
     const { userId } = req.params;
 
@@ -97,7 +97,7 @@ router.get('/mood-selection/:userId', async (req, res) => {
     }
 });
 
-// ✅ Mood Tracking (Ensuring API Route is Correct)
+// Mood Tracking (Ensuring API Route is Correct)
 router.post('/mood-selection', async (req, res) => {
     const { userId, mood } = req.body;
 
@@ -131,7 +131,27 @@ router.post('/mood-selection', async (req, res) => {
     }
 });
 
-// ✅ Change Password
+// Get Mood Analytics (Fetch mood history)
+router.get('/mood-analytics/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    if (!userId) {
+        return res.status(400).json({ message: 'User ID is required' });
+    }
+
+    try {
+        // Moods sorted by date
+        const moodHistory = await Sentiment.find({ userId }).sort({ date: 1 });
+
+        res.status(200).json(moodHistory);
+    } catch (error) {
+        console.error('Error fetching mood analytics:', error.message);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
+// Change Password
 router.post('/change-password', async (req, res) => {
     const { email, currentPassword, newPassword } = req.body;
 

@@ -11,6 +11,7 @@ import MenstrualTracker from './pages/MenstrualTracker';
 import MentalSupport from './pages/MentalSupport';
 import AIDiagnosis from './pages/AIDiagnosis';
 import Registration from './pages/Registration';
+import MoodAnalytics from './pages/MoodAnalytics';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/mental-support" element={<MentalSupport />} />
         <Route path="/ai-diagnosis" element={<AIDiagnosis />} />
         <Route path="/Registration" element={<Registration />} />
+        <Route path="/mood-analytics" element={<MoodAnalytics />} />
       </Routes>
     </Router>
   );
