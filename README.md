@@ -11,6 +11,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Postman:** [https://web.postman.co/](https://web.postman.co/)
 - **Backend Start Command:** `node server.js`
 - **Frontend Start Command:** `npm start`
+- **Backend Model:** `python diagnosis_api.py`
+
+
+---
+## [0.10.5] - 11/02/2025   
+## 🚀 Features
+- **NEW**: Machine Learning: using (Random Forest Classifier) - Backend: (Python)
+- **AI-Powered Diagnosis**: Uses **Random Forest Classifier** was added to analyze symptoms and provide a probable diagnosis.
+- **User-Friendly Interface**: A simple **React-based UI** for users to enter symptoms and receive instant feedback.
+- **Machine Learning Model**: Trained on a **diverse dataset** for accurate disease prediction.
+- **Secure Backend API**: A **Flask-based backend** that processes user input and interacts with the ML model.
+- **Optimized Performance**: Improved AI accuracy through **better training data and model selection**.
+---
+
+📌 **Backend Features:**
+- **Flask API**: Accepts user symptoms and returns an AI-generated diagnosis.
+- **ML Model Training**: Uses **Random Forest Classifier** for predictions.
+- **CORS Enabled**: Allows secure interaction between frontend and backend.
+
+---
+
+📌 **ML Model Training (`train_model.py`):**
+- Cleans and processes the dataset.
+- Trains an **optimized Random Forest Classifier**.
+- Saves the trained **model (`diagnosis_model.pkl`)** and **label encoder (`label_encoder.pkl`)**.
+
+**Example of Training Accuracy:**
+
+---
+
 ---
 ## [0.10.4] - 11/02/2025   
 **🔹 Created Mood Analytics Feature**
