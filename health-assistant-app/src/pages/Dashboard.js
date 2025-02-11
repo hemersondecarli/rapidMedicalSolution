@@ -159,6 +159,12 @@ function Dashboard() {
                         <h3>AI Pre-Diagnosis</h3>
                         <p>Receive an AI-powered preliminary diagnosis.</p>
                     </div>
+                    <div className="dashboard-card" onClick={() => navigate('/mood-analytics')}>
+                        <ClipboardCheck size={24} />
+                        <h3>Mood Analytics</h3>
+                        <p>Visualize your mood trends over time.</p>
+                    </div>
+
                 </div>
 
                 {/* ✅ Calendar */}
