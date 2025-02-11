@@ -6,7 +6,7 @@ import '../styles/Dashboard.css';
 import api from '../services/api';
 
 // Import Icons from Lucide
-import { LogOut, CalendarDays, Lock, ClipboardCheck, ShoppingCart, Stethoscope, Heart, User } from 'lucide-react';
+import { LogOut, CalendarDays, Lock, ClipboardCheck, ShoppingCart, Stethoscope, Heart, User, PhoneCall } from 'lucide-react';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -147,10 +147,12 @@ function Dashboard() {
                         <h3>Menstrual Cycle Tracker</h3>
                         <p>Track your cycle with accuracy and ease.</p>
                     </div>
-                    <div className="dashboard-card" onClick={() => navigate('/mental-support')}>
-                        <User size={24} />
-                        <h3>Nurse 24/7 & Mental Health</h3>
-                        <p>Connect with a nurse or access mental health support anytime.</p>
+                    <div className="dashboard-card">
+                        <a href="tel:+015625150" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <PhoneCall size={24} />
+                            <h3>Call Nurse 24/7</h3>
+                            <p>Tap to call a nurse for mental health support.</p>
+                        </a>
                     </div>
                     <div className="dashboard-card" onClick={() => navigate('/ai-diagnosis')}>
                         <Stethoscope size={24} />
