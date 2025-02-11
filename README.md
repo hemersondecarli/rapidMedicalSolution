@@ -12,6 +12,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Backend Start Command:** `node server.js`
 - **Frontend Start Command:** `npm start`
 ---
+## [0.10.4] - 11/02/2025   
+**🔹 Created Mood Analytics Feature**
+- Implemented a **line chart** to visualize user mood trends.
+- Mapped moods (`Happy, Sad, Neutral, Stressed, Anxious, Excited`).
+- Integrated **Recharts.js** for data visualization.
+- Fetched mood history from `/users/mood-analytics/:userId` API.
+- Improved **tooltip functionality** for mood representation.
+
+---
+
+**🔄 Updated Backend API**
+- Added a **new route** to fetch **user mood analytics** from the database.
+- Ensured **data formatting** for the frontend graph.
+
+---
+
+**📊 Integrated Mood Analytics & Call Nurse Feature**
+- Added a **button** to navigate to the **Mood Analytics page**.
+- Ensured smooth **page transitions**.
+- Added a **"Call Nurse" button** that directly dials a nurse when clicked.
+
+---
 ## [0.10.3] - 04/02/2025 - 10/02/2025      
 ### **🆕 Added**
 - **Mood Selection Flow**: Users must now log their mood daily before accessing the dashboard.
