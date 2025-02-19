@@ -13,6 +13,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Frontend Start Command:** `npm start`
 - **Backend Model:** `python diagnosis_api.py`
 
+---
+## [0.10.6] - 19/02/2025   
+### **AI Diagnosis Improvements**
+- **Added medication recommendations**  based on diagnosed conditions.
+- **Fixed duplicate medication issue**  ensuring users don’t store the same medication multiple times.
+- **Added a “Request Medication” button**  that allows users to manually request prescribed medication.
+- **Stored prescribed medications in the database** for tracking.
+- **Improved error handling**  when requesting medications.
+
+### **🆕 Medication Management System**
+- **Created `MedicationList` component**  to fetch and display user medications.
+- **Built `medicationRoutes.js`** 🛠 for handling medication storage and retrieval.
+- **Developed a new model**  to store medications by user ID.
+- **Added API routes for medications** to connect frontend and backend.
 
 ---
 ## [0.10.5] - 11/02/2025   
