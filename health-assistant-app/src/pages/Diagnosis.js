@@ -32,7 +32,7 @@ function Diagnosis() {
     setDiagnosis("");
     setMedication("");
     setInstructions("");
-    setShowRequestButton(false); 
+    setShowRequestButton(false);
 
     try {
       console.log("🔹 Sending symptoms to AI:", symptoms);
@@ -55,7 +55,7 @@ function Diagnosis() {
       setInstructions(diagnosisData.instructions);
 
       if (diagnosisData.medication !== "No specific medication recommended.") {
-        setShowRequestButton(true); //  Show request button only when medication is available
+        setShowRequestButton(true);
       }
     } catch (error) {
       console.error("❌ Error:", error);
@@ -65,9 +65,20 @@ function Diagnosis() {
     }
   };
 
-  // Handles medication request (stores medication in the database)
+  // Handles medication request and prevents duplicates
   const handleRequestMedication = async () => {
     try {
+      console.log("🔹 Checking if medication already exists:", medication);
+
+      // Check if medication already exists
+      const existingMedications = await api.get(`http://127.0.0.1:5001/api/medications/user/${user.id}`);
+      const alreadyExists = existingMedications.data.some(med => med.medication === medication);
+
+      if (alreadyExists) {
+        setError("⚠️ Medication already exists in your list.");
+        return;
+      }
+
       console.log("🔹 Requesting medication:", medication);
 
       const storeResponse = await api.post("http://127.0.0.1:5001/api/medications/add", {
@@ -80,7 +91,7 @@ function Diagnosis() {
 
       if (storeResponse.status === 201) {
         setSuccessMessage("✅ Medication successfully added to your list.");
-        setShowRequestButton(false); // Hides button after medication is added
+        setShowRequestButton(false);
       } else {
         setError("❌ Failed to store medication in the database.");
       }
