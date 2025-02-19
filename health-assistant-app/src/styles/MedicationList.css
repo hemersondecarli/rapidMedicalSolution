@@ -1,0 +1,116 @@
+/* ✅ General Page Styling */
+.medication-list-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ✅ Title */
+.medication-list-container h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.medication-list-container h2::before {
+    content: "💊";
+    margin-right: 8px;
+}
+
+/* ✅ Loading & Error Messages */
+.medication-list-container p {
+    font-size: 16px;
+    color: #34495e;
+    margin-top: 10px;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+.warning-message {
+    color: #f39c12;
+    font-weight: 600;
+}
+
+/* ✅ Medication List */
+.medication-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* ✅ Medication Item */
+.medication-item {
+    background: #ecf0f1;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.medication-item:hover {
+    transform: translateY(-3px);
+}
+
+/* ✅ Medication Title */
+.medication-item h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #16a085;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.medication-item h3::before {
+    content: "💊";
+    margin-right: 8px;
+}
+
+/* ✅ Medication Instructions */
+.medication-item p {
+    font-size: 15px;
+    color: #2c3e50;
+    margin-top: 8px;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.medication-item p::before {
+    content: "📌";
+    margin-right: 8px;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+    .medication-list-container {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .medication-item {
+        padding: 12px;
+    }
+
+    .medication-item h3 {
+        font-size: 18px;
+    }
+
+    .medication-item p {
+        font-size: 14px;
+    }
+}
