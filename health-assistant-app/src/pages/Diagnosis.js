@@ -4,20 +4,35 @@ import "../styles/Diagnosis.css";
 
 function Diagnosis() {
   const user = JSON.parse(localStorage.getItem("user"));
-  const [symptoms, setSymptoms] = useState("");
+  const [selectedSymptoms, setSelectedSymptoms] = useState([]);
   const [diagnosis, setDiagnosis] = useState("");
   const [medication, setMedication] = useState("");
   const [instructions, setInstructions] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [showTips, setShowTips] = useState(false);
   const [showRequestButton, setShowRequestButton] = useState(false);
+
+  // Symptom options for selection
+  const symptomsList = [
+    "Fever", "Cough", "Fatigue", "Headache", "Sore Throat", "Shortness of Breath",
+    "Runny Nose", "Body Aches", "Loss of Taste/Smell", "Nausea", "Vomiting",
+    "Diarrhea", "Skin Rash"
+  ];
+
+  // Handles symptom selection click
+  const handleSymptomClick = (symptom) => {
+    setSelectedSymptoms((prev) =>
+      prev.includes(symptom)
+        ? prev.filter((s) => s !== symptom) // Remove if already selected
+        : [...prev, symptom] // Add if not selected
+    );
+  };
 
   // Handles AI Diagnosis Request
   const handleSubmit = async () => {
-    if (!symptoms.trim()) {
-      setError("⚠️ Please enter at least one symptom.");
+    if (selectedSymptoms.length === 0) {
+      setError("⚠️ Please select at least one symptom.");
       return;
     }
 
@@ -35,11 +50,11 @@ function Diagnosis() {
     setShowRequestButton(false);
 
     try {
-      console.log("🔹 Sending symptoms to AI:", symptoms);
+      console.log("🔹 Sending symptoms to AI:", selectedSymptoms);
 
       const response = await api.post("http://127.0.0.1:5002/predict", {
         user_id: user.id,
-        symptoms,
+        symptoms: selectedSymptoms,
       });
 
       console.log("🔹 Diagnosis API Response:", response.data);
@@ -71,8 +86,12 @@ function Diagnosis() {
       console.log("🔹 Checking if medication already exists:", medication);
 
       // Check if medication already exists
-      const existingMedications = await api.get(`http://127.0.0.1:5001/api/medications/user/${user.id}`);
-      const alreadyExists = existingMedications.data.some(med => med.medication === medication);
+      const existingMedications = await api.get(
+        `http://127.0.0.1:5001/api/medications/user/${user.id}`
+      );
+      const alreadyExists = existingMedications.data.some(
+        (med) => med.medication === medication
+      );
 
       if (alreadyExists) {
         setError("⚠️ Medication already exists in your list.");
@@ -104,38 +123,20 @@ function Diagnosis() {
   return (
     <div className="diagnosis-container">
       <h2>🩺 AI Diagnosis</h2>
-      <p>Enter your symptoms to receive an AI-generated diagnosis along with suggested medication.</p>
+      <p>Select your symptoms to receive an AI-generated diagnosis along with suggested medication.</p>
 
-      {/* Toggle Symptom Tips */}
-      <button onClick={() => setShowTips(!showTips)} className="tips-button">
-        {showTips ? "❌ Hide Tips" : "ℹ️ Show Symptom Tips"}
-      </button>
-
-      {/* Symptom Tips Section */}
-      {showTips && (
-        <div className="symptom-tips">
-          <h3>💡 How to Describe Your Symptoms:</h3>
-          <ul>
-            <li>Use **common symptom names** (e.g., fever, cough, headache).</li>
-            <li>List multiple symptoms **separated by commas** (e.g., "fever, fatigue, sore throat").</li>
-            <li>Avoid using **full sentences** (❌ "I have a headache" → ✅ "headache").</li>
-          </ul>
-          <h4>✅ Example Symptoms:</h4>
-          <p>
-            Fever, Cough, Fatigue, Headache, Sore Throat, Shortness of Breath, Runny Nose, 
-            Body Aches, Loss of Taste/Smell, Nausea, Vomiting, Diarrhea, Skin Rash.
-          </p>
-        </div>
-      )}
-
-      {/* Input Field */}
-      <input
-        type="text"
-        placeholder="e.g., fever, cough"
-        value={symptoms}
-        onChange={(e) => setSymptoms(e.target.value)}
-        className="input-field"
-      />
+      {/* Symptom Selection */}
+      <div className="symptom-selection">
+        {symptomsList.map((symptom) => (
+          <button
+            key={symptom}
+            className={`symptom-button ${selectedSymptoms.includes(symptom) ? "selected" : ""}`}
+            onClick={() => handleSymptomClick(symptom)}
+          >
+            {selectedSymptoms.includes(symptom) ? "✅ " : ""}{symptom}
+          </button>
+        ))}
+      </div>
 
       {/* Submit Button */}
       <button onClick={handleSubmit} disabled={loading} className="diagnosis-button">
