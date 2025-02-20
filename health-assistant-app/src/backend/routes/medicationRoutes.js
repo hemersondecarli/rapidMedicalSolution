@@ -35,4 +35,21 @@ router.get("/user/:user_id", async (req, res) => {
   }
 });
 
+// Remove a medication by ID
+router.delete("/remove/:id", async (req, res) => {
+  try {
+      const { id } = req.params;
+
+      const deletedMed = await Medication.findByIdAndDelete(id);
+      if (!deletedMed) {
+          return res.status(404).json({ error: "Medication not found" });
+      }
+
+      res.status(200).json({ message: "Medication removed successfully" });
+  } catch (error) {
+      res.status(500).json({ error: "Error removing medication" });
+  }
+});
+
+
 module.exports = router;
