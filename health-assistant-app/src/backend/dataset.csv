@@ -19,3 +19,12 @@ Fever,Cough,Fatigue,Headache,Sore_Throat,Shortness_of_Breath,Runny_Nose,Body_Ach
 0,1,1,1,0,0,0,1,0,1,0,1,1,Measles
 1,0,1,0,1,0,0,1,0,0,1,0,1,Mumps
 0,1,0,1,1,1,1,1,0,0,0,1,1,Rubella
+1,1,1,1,1,1,1,0,0,1,1,1,0,Whooping Cough
+0,1,0,1,1,0,1,0,1,0,1,0,1,Scarlet Fever
+1,0,0,0,1,1,0,1,0,1,0,1,0,Tonsillitis
+0,1,1,0,0,0,1,0,1,1,0,1,1,Norovirus
+1,0,1,1,0,1,0,0,0,1,1,0,0,Ebola
+1,1,0,1,0,1,1,1,0,0,0,1,1,Yellow Fever
+1,0,1,0,1,0,1,0,1,0,1,0,0,Zika Virus
+0,1,1,0,0,1,0,1,0,1,1,0,1,RSV Infection
+1,1,1,0,1,0,0,0,1,0,1,0,1,Meningitis
