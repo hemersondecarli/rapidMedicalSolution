@@ -114,3 +114,18 @@
         font-size: 14px;
     }
 }
+
+.remove-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.remove-button:hover {
+    background-color: #e60000;
+}
+

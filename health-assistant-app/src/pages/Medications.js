@@ -18,10 +18,7 @@ function MedicationList() {
     const fetchMedications = async () => {
       try {
         console.log(`🔹 Fetching medications for user ID: ${user.id}`);
-
-        
         const response = await api.get(`http://localhost:5001/api/medications/user/${user.id}`);
-
         console.log("🔹 Medication API Response:", response.data);
         setMedications(response.data);
       } catch (err) {
@@ -34,6 +31,18 @@ function MedicationList() {
 
     fetchMedications();
   }, [user]);
+
+  // Function to Remove Medication
+  const handleRemove = async (id) => {
+    try {
+      console.log(`🔹 Removing medication ID: ${id}`);
+      await api.delete(`http://localhost:5001/api/medications/remove/${id}`);
+      setMedications(medications.filter((med) => med._id !== id));
+    } catch (error) {
+      console.error("❌ Error removing medication:", error);
+      setError("❌ Error removing medication. Please try again.");
+    }
+  };
 
   return (
     <div className="medication-list-container">
@@ -48,10 +57,13 @@ function MedicationList() {
 
       {medications.length > 0 && (
         <ul className="medication-list">
-          {medications.map((med, index) => (
-            <li key={index} className="medication-item">
+          {medications.map((med) => (
+            <li key={med._id} className="medication-item">
               <h3>💊 {med.medication}</h3>
               <p>📌 {med.instructions}</p>
+              <button className="remove-button" onClick={() => handleRemove(med._id)}>
+                ❌ Remove
+              </button>
             </li>
           ))}
         </ul>
