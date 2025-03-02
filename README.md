@@ -11,7 +11,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Postman:** [https://web.postman.co/](https://web.postman.co/)
 - **Backend Start Command:** `node server.js`
 - **Frontend Start Command:** `npm start`
-- **Backend Model:** `python diagnosis_api.py`
+- **Backend Model:** `python diagnosis_api.py & menstrual_tracker_api.py`
+
+---
+## 🚀 New Features & Updates
+
+## [0.10.7] - 22/02/2025 - 02/03/2025   
+###  ** Added Flask API (`menstrual_tracker_api.py`)**
+- Created a **Flask API** to handle menstrual cycle tracking.
+- Added a **setup check API** to determine if a user has existing cycle data.
+- Implemented a **questionnaire API** for first-time users.
+- Created a **cycle tracking API** that:
+  - Saves user data
+  - Predicts the next period
+  - Returns cycle information
+
+---
+###  ** Updated Database Model (`MenstrualCycle.js`)**
+- Created a **MongoDB schema** for storing menstrual cycle data.
+- Added fields for:
+  - `user_id`
+  - `last_period_date`
+  - `cycle_length`
+  - `period_duration`
+  - `next_period_date`
+- Ensured **user_id is unique** to prevent duplicate entries.
+
+---
+### ** Created Express Routes (`menstrualtrackerRoutes.js`)**
+- Built **Express routes** to:
+  - Fetch a user’s cycle data
+  - Save new cycle data into MongoDB
+- Connected **Flask API with Node.js** for better integration.
+
+---
+### ** Integrated API with React (`MenstrualTracker.js`)**
+- Updated **React frontend** to:
+  - Ask users cycle-related questions
+  - Send responses to Flask API
+  - Display **predicted next period** and cycle details
 
 ---
 ## [0.10.6] - 19/02/2025   
