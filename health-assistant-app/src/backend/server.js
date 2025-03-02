@@ -5,6 +5,7 @@ const userRoutes = require('./routes/userRoutes');
 const aiRoutes = require('./routes/aiRoutes'); 
 const sentimentRoutes = require('./routes/sentimentRoutes');  
 const medicationRoutes = require("./routes/medicationRoutes");
+const menstrualTrackerRoutes = require("./routes/menstrualTrackerRoutes");
 
 require('dotenv').config();
 
@@ -19,6 +20,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/sentiment', sentimentRoutes); 
 app.use("/api/medications", medicationRoutes); 
+app.use("/api/menstrual_tracker", menstrualTrackerRoutes);
 
 // Start the Server
 connectDB();
