@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 🚀 New Features & Updates
 
 ## [0.10.7] - 22/02/2025 - 02/03/2025   
-###  ** Added Flask API (`menstrual_tracker_api.py`)**
+###  **Added Flask API (`menstrual_tracker_api.py`)**
 - Created a **Flask API** to handle menstrual cycle tracking.
 - Added a **setup check API** to determine if a user has existing cycle data.
 - Implemented a **questionnaire API** for first-time users.
@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Returns cycle information
 
 ---
-###  ** Updated Database Model (`MenstrualCycle.js`)**
+###  **Updated Database Model (`MenstrualCycle.js`)**
 - Created a **MongoDB schema** for storing menstrual cycle data.
 - Added fields for:
   - `user_id`
@@ -38,14 +38,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ensured **user_id is unique** to prevent duplicate entries.
 
 ---
-### ** Created Express Routes (`menstrualtrackerRoutes.js`)**
+### **Created Express Routes (`menstrualtrackerRoutes.js`)**
 - Built **Express routes** to:
   - Fetch a user’s cycle data
   - Save new cycle data into MongoDB
 - Connected **Flask API with Node.js** for better integration.
 
 ---
-### ** Integrated API with React (`MenstrualTracker.js`)**
+### **Integrated API with React (`MenstrualTracker.js`)**
 - Updated **React frontend** to:
   - Ask users cycle-related questions
   - Send responses to Flask API
