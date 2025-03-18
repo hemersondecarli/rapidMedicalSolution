@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 ## 🚀 New Features & Updates
 
-## [0.10.7] - 22/02/2025 - 02/03/2025   
+## [0.10.7]  
 ###  **Added Flask API (`menstrual_tracker_api.py`)**
 - Created a **Flask API** to handle menstrual cycle tracking.
 - Added a **setup check API** to determine if a user has existing cycle data.
@@ -52,7 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Display **predicted next period** and cycle details
 
 ---
-## [0.10.6] - 19/02/2025   
+## [0.10.6] 
 ### **AI Diagnosis Improvements**
 - **Added medication recommendations**  based on diagnosed conditions.
 - **Fixed duplicate medication issue**  ensuring users don’t store the same medication multiple times.
@@ -67,7 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Added API routes for medications** to connect frontend and backend.
 
 ---
-## [0.10.5] - 11/02/2025   
+## [0.10.5]
 ## 🚀 Features
 - **NEW**: Machine Learning: using (Random Forest Classifier) - Backend: (Python)
 - **AI-Powered Diagnosis**: Uses **Random Forest Classifier** was added to analyze symptoms and provide a probable diagnosis.
@@ -94,7 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 ---
-## [0.10.4] - 11/02/2025   
+## [0.10.4] 
 **🔹 Created Mood Analytics Feature**
 - Implemented a **line chart** to visualize user mood trends.
 - Mapped moods (`Happy, Sad, Neutral, Stressed, Anxious, Excited`).
@@ -116,7 +116,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a **"Call Nurse" button** that directly dials a nurse when clicked.
 
 ---
-## [0.10.3] - 04/02/2025 - 10/02/2025      
+## [0.10.3]
 ### **🆕 Added**
 - **Mood Selection Flow**: Users must now log their mood daily before accessing the dashboard.
 - **New `Sentiment` Model**: Stores users' mood entries with timestamps to prevent duplicate logging.
@@ -138,7 +138,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Dynamic Mood Display on Dashboard**: Shows `Not Recorded` if mood hasn't been set.
 ---
 
-## [0.10.1] - 29/01/2025
+## [0.10.1]
 ### **🆕 New Features**
 - **AI Pre-Diagnosis Chat (`AIDiagnosis.js`)**
   - Implemented an **interactive AI chat system** for symptom analysis.
@@ -206,7 +206,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Enabled CORS** to allow frontend-backend communication.
 
 ---
-## [0.10.0] - 22/01/2025
+## [0.10.0]
 ### Added
 - **buttons on the Dashboard for the following functionalities**
 - Diagnosis
@@ -226,7 +226,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Resolved errors with registration and login functionalities by debugging the backend (userRoutes.js) and ensuring data validation.
 
 ---
-## [0.0.9] -20/01/2025 - 22/01/2025
+## [0.0.9]
 ### Added
 - fields to accept the old password and the new password for the user.
 
@@ -238,7 +238,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - It now checks for the old password validity before hashing and updating the new password.
 
 ---
-## [0.0.8] - 23/12/2024
+## [0.0.8]
 ### Added
 
 - **Dashboard Page**:
@@ -265,7 +265,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Enhanced frontend login logic to save user details (name, email, GP name) upon successful login.
 ---
 
-## [0.0.7] - 22/11/2024
+## [0.0.7] 
 ### Added
 - **User Registration:**
     - Frontend registration form (`src/pages/Registration.js`) with:
@@ -290,7 +290,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.0.6] - 22/11/2024
+## [0.0.6]
 ### Added
 - **User Registration:**
   - Hashes passwords using bcrypt before storing them securely in MongoDB.
@@ -299,7 +299,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.0.5] - 22/11/2024
+## [0.0.5]
 ### Added
 - Backend structure:
   - `db.js`: Manages the connection to MongoDB using Mongoose and reads the MongoDB URI from `.env`.
@@ -315,7 +315,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.0.4] - 07/11/2024
+## [0.0.4]
 ### Added
 - Installed React Router for frontend routing.
 - Added `CreateAccount` page and corresponding CSS.
@@ -326,7 +326,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.0.3] - 07/11/2024
+## [0.0.3]
 ### Changed
 - Migrated to React library:
   - Converted `login.html` to `index.html`.
@@ -334,12 +334,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.0.2] - 26/10/2024
+## [0.0.2]
 ### Added
 - Created `Login.html`, `Login.css`, and `Login.js`.
 
 ---
 
-## [0.0.1] - 11/10/2024
+## [0.0.1]
 ### Added
 - Created `CHANGELOG.md` to track project updates.
