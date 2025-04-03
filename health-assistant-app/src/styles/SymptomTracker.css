@@ -1,0 +1,54 @@
+.symptom-tracker-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .symptom-options {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .symptom-options button {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.2s;
+  }
+  
+  .symptom-options button.selected {
+    background-color: #4caf50;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .save-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .status-message {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .has-symptoms {
+    background: #dff0d8 !important;
+    border-radius: 50%;
+  }
+  
