@@ -13,6 +13,7 @@ import AIDiagnosis from './pages/AIDiagnosis';
 import Registration from './pages/Registration';
 import MoodAnalytics from './pages/MoodAnalytics';
 import MedicalHistory from "./components/MedicalHistory";
+import SymptomTracker from "./pages/SymptomTracker";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="/Registration" element={<Registration />} />
         <Route path="/mood-analytics" element={<MoodAnalytics />} />
         <Route path="/medical-history" element={<MedicalHistory />} />
+        <Route path="/symptom-tracker" element={<SymptomTracker />} />
       </Routes>
     </Router>
   );
