@@ -41,3 +41,19 @@
     color: #333;
   }
   
+  .clear-history-btn {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background 0.2s ease;
+  }
+  
+  .clear-history-btn:hover {
+    background-color: #d9363e;
+  }
+  

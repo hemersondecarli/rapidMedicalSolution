@@ -25,4 +25,15 @@ router.get("/history/:userId", async (req, res) => {
   }
 });
 
+// Clear all history for a user
+router.delete("/history/clear/:userId", async (req, res) => {
+  try {
+    await DiagnosisHistory.deleteMany({ user_id: req.params.userId });
+    res.status(200).json({ message: "History cleared." });
+  } catch (error) {
+    console.error("Error clearing history:", error);
+    res.status(500).json({ error: "Failed to clear history." });
+  }
+});
+
 module.exports = router;
