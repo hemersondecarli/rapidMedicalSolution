@@ -13,6 +13,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Frontend Start Command:** `npm start`
 - **Backend Model:** `python diagnosis_api.py & python menstrual_tracker_api.py`
 
+---
+## 🚀 New Features & Updates
+
+## [0.11.0] - Symptom Tracking & Calendar Integration
+
+### Symptom Logging via Calendar
+- Implemented a **calendar-based symptom tracker** directly on the user's dashboard.
+- Users can now:
+  - Select a date on the calendar
+  - Log common symptoms like *Headache, Nausea, Fever, Fatigue*, etc.
+  - View highlighted dates with symptom entries
+  - Edit, Update or Delete existing entries
+
+---
+#### **SymptomEntry Model (`SymptomEntry.js`)**
+- Created a new Mongoose model with fields:
+  - `user_id`: the ID of the user
+  - `date`: the ISO string of the entry date
+  - `symptoms`: an array of selected symptoms
+
+#### **Symptom Routes (`symptomRoutes.js`)**
+- `POST /api/symptoms/log`: Save or update symptoms for a specific date
+- `GET /api/symptoms/:user_id`: Retrieve all symptoms for a user
+- `DELETE /api/symptoms/:user_id/:date`: Clear symptoms from a specific day
+
+---
+
+### Dashboard Updates (`Dashboard.js`)
+- Integrated **symptom modal** with save and delete functionality
+- Styled and highlighted calendar using `react-calendar`
+- Added logic to persist symptoms across sessions
+- Toggle symptom tracker modal per selected calendar day
+
+---
+
+###  New Files
+- `SymptomTracker.js`: Dedicated page for future expansion of symptom tracking
+- `SymptomTracker.css`: Styling for tracker view (currently minimal)
+
+---
+
+### Backend Configuration (`server.js`)
+- Registered the `/api/symptoms` route for handling logging and retrieval
 
 ---
 ## 🚀 New Features & Updates
