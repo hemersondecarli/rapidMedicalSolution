@@ -8,6 +8,8 @@ const medicationRoutes = require("./routes/medicationRoutes");
 const menstrualTrackerRoutes = require("./routes/menstrualTrackerRoutes");
 const medicalHistoryRoutes = require("./routes/diagnosisRoutes");
 const diagnosisRoutes = require("./routes/diagnosisRoutes");
+const symptomRoutes = require("./routes/symptomRoutes");
+
 
 
 
@@ -26,6 +28,7 @@ app.use('/api/sentiment', sentimentRoutes);
 app.use("/api/medications", medicationRoutes); 
 app.use("/api/menstrual_tracker", menstrualTrackerRoutes);
 app.use("/api", diagnosisRoutes);
+app.use("/api/symptoms", symptomRoutes);
 
 // Start the Server
 connectDB();
