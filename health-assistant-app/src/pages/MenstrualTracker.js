@@ -25,7 +25,7 @@ function MenstrualTracker() {
 
     const checkUserSetup = async () => {
       try {
-        const response = await api.get(`http://localhost:5001/api/menstrual_tracker/check/${user.id}`);
+        const response = await api.get(`http://localhost:7777/api/menstrual_tracker/check/${user.id}`);
         console.log("✅ User setup check response:", response.data);
 
         if (response.data && response.data.next_period) {
@@ -68,7 +68,7 @@ function MenstrualTracker() {
 
         console.log("📤 Sending Request:", requestData);
 
-        const response = await api.post("http://localhost:5001/api/menstrual_tracker/setup", requestData);
+        const response = await api.post("http://localhost:7777/api/menstrual_tracker/setup", requestData);
 
         console.log("✅ API Response:", response.data);
 

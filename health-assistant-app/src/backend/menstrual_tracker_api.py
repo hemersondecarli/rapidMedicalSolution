@@ -84,4 +84,4 @@ def setup_tracker():
         return jsonify({"error": f"Error processing request: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(port=5001, debug=True)
+    app.run(port=7777, debug=True)
