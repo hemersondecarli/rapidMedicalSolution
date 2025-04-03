@@ -69,6 +69,15 @@ function Diagnosis() {
       setMedication(diagnosisData.medication);
       setInstructions(diagnosisData.instructions);
 
+      // Save diagnosis history
+      await api.post("http://localhost:5001/api/history", {
+        user_id: user.id,
+        symptoms: selectedSymptoms,
+        diagnosis: diagnosisData.diagnosis,
+        medication: diagnosisData.medication,
+        instructions: diagnosisData.instructions,
+      });
+
       if (diagnosisData.medication !== "No specific medication recommended.") {
         setShowRequestButton(true);
       }
