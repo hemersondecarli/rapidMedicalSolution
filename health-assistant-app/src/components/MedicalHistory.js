@@ -5,6 +5,7 @@ import "../styles/MedicalHistory.css";
 function MedicalHistory() {
   const user = JSON.parse(localStorage.getItem("user"));
   const [history, setHistory] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -13,15 +14,38 @@ function MedicalHistory() {
         setHistory(res.data);
       } catch (err) {
         console.error("Error fetching history:", err);
+        setError("❌ Failed to fetch history.");
       }
     };
 
     fetchHistory();
   }, [user.id]);
 
+  const handleClearHistory = async () => {
+    const confirm = window.confirm("Are you sure you want to delete your entire medical history?");
+    if (!confirm) return;
+
+    try {
+      await api.delete(`http://localhost:5001/api/history/clear/${user.id}`);
+      setHistory([]);
+    } catch (err) {
+      console.error("Error clearing history:", err);
+      setError("❌ Failed to clear history.");
+    }
+  };
+
   return (
     <div className="history-container">
       <h2>📚 Medical History</h2>
+
+      {error && <p className="error-message">{error}</p>}
+
+      {history.length > 0 && (
+        <button className="clear-history-btn" onClick={handleClearHistory}>
+          🗑️ Clear History
+        </button>
+      )}
+
       {history.length === 0 ? (
         <p>No history available yet.</p>
       ) : (
