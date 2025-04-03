@@ -132,10 +132,9 @@ function Dashboard() {
                         <h3>Diagnosis</h3>
                         <p>Get a personalized diagnosis based on your symptoms.</p>
                     </div>
-                    <div className="dashboard-card" onClick={() => navigate('/place-orders')}>
-                        <ShoppingCart size={24} />
-                        <h3>Place Orders</h3>
-                        <p>Order medications and other healthcare essentials.</p>
+                    <div className="dashboard-card" onClick={() => navigate("/medical-history")}>
+                         <h3>📚 Medical History</h3>
+                         <p>Review your past diagnoses and treatments.</p>
                     </div>
                     <div className="dashboard-card" onClick={() => navigate('/medications')}>
                         <ClipboardCheck size={24} />
