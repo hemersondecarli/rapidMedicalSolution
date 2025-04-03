@@ -5,8 +5,10 @@ import 'react-calendar/dist/Calendar.css';
 import '../styles/Dashboard.css';
 import api from '../services/api';
 
-// Import Icons from Lucide
-import { LogOut, CalendarDays, Lock, ClipboardCheck, ShoppingCart, Stethoscope, Heart, User, PhoneCall } from 'lucide-react';
+import {
+    LogOut, CalendarDays, Lock, ClipboardCheck,
+    Stethoscope, Heart, User, PhoneCall
+} from 'lucide-react';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -17,9 +19,18 @@ function Dashboard() {
     const [newPassword, setNewPassword] = useState('');
     const [passwordMessage, setPasswordMessage] = useState('');
     const [passwordError, setPasswordError] = useState('');
-
     const [mood, setMood] = useState(user?.mood || '');
     const [date, setDate] = useState(new Date());
+
+    const [symptomLog, setSymptomLog] = useState({});
+    const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [message, setMessage] = useState('');
+
+    const symptomOptions = [
+        "Headache", "Fatigue", "Nausea", "Fever", "Cough",
+        "Sore Throat", "Body Aches", "Loss of Smell", "Diarrhea"
+    ];
 
     useEffect(() => {
         if (!user) {
@@ -35,6 +46,20 @@ function Dashboard() {
                 })
                 .catch(error => console.error('Error checking mood:', error.message));
         }
+
+        const fetchHistory = async () => {
+            try {
+                const res = await api.get(`http://localhost:5001/api/symptoms/${user.id}`);
+                const mapped = {};
+                res.data.forEach((entry) => {
+                    mapped[new Date(entry.date).toDateString()] = entry.symptoms;
+                });
+                setSymptomLog(mapped);
+            } catch (err) {
+                console.error("Error fetching symptoms:", err);
+            }
+        };
+        fetchHistory();
     }, [user, navigate]);
 
     const handleLogout = () => {
@@ -42,7 +67,6 @@ function Dashboard() {
         navigate('/login');
     };
 
-    // Handle Change Password
     const handleChangePassword = async (e) => {
         e.preventDefault();
         setPasswordMessage('');
@@ -68,9 +92,56 @@ function Dashboard() {
         }
     };
 
+    const handleSaveSymptoms = async () => {
+        try {
+            await api.post("http://localhost:5001/api/symptoms/log", {
+                user_id: user.id,
+                date: date,
+                symptoms: selectedSymptoms,
+            });
+
+            setSymptomLog((prev) => ({
+                ...prev,
+                [date.toDateString()]: selectedSymptoms,
+            }));
+
+            setMessage("✅ Symptoms saved!");
+            setTimeout(() => setMessage(""), 2000);
+            setShowModal(false);
+        } catch (err) {
+            console.error("Error saving symptoms:", err);
+            setMessage("❌ Failed to save.");
+        }
+    };
+
+    const handleClearSymptoms = async () => {
+        const formatted = date.toISOString(); // gives full ISO format
+        console.log("🔍 Attempting to clear:", user.id, formatted);
+      
+        try {
+          const res = await api.delete(`http://localhost:5001/api/symptoms/${user.id}/${formatted}`);
+            if (res.status === 200) {
+                const updatedLog = { ...symptomLog };
+                delete updatedLog[date.toDateString()];
+                setSymptomLog(updatedLog);
+                setSelectedSymptoms([]);
+                setMessage("✅ Symptoms cleared!");
+                setTimeout(() => setMessage(""), 2000);
+            }
+        } catch (err) {
+            console.error("Error clearing symptoms:", err);
+            setMessage("❌ Failed to clear symptoms.");
+        }
+    };
+    
+
+
+    const tileClassName = ({ date }) => {
+        return symptomLog[date.toDateString()] ? 'has-symptoms' : null;
+    };
+
     return (
         <div className="dashboard-container">
-            {}
             <header className="dashboard-header">
                 <h1>Welcome, {user.name}</h1>
                 <button onClick={handleLogout} className="logout-button">
@@ -79,7 +150,6 @@ function Dashboard() {
             </header>
 
             <div className="dashboard-main">
-                {/* Left Panel - User Info & Change Password */}
                 <div className="dashboard-info">
                     <h2><User size={40} /> Your Details</h2>
                     <p><strong>Name:</strong> {user.name}</p>
@@ -87,7 +157,6 @@ function Dashboard() {
                     <p><strong>GP Name:</strong> {user.gpName}</p>
                     <p><strong>Today's Mood:</strong> {mood || 'Not recorded'}</p>
 
-                    {/* Toggle Change Password Form */}
                     <button
                         className="toggle-password-button"
                         onClick={() => setShowChangePassword(!showChangePassword)}
@@ -95,7 +164,6 @@ function Dashboard() {
                         <Lock size={16} /> {showChangePassword ? 'Hide Change Password' : 'Change Password'}
                     </button>
 
-                    {/* Change Password Form */}
                     {showChangePassword && (
                         <form onSubmit={handleChangePassword} className="password-change-form">
                             <h2>Change Password</h2>
@@ -125,7 +193,6 @@ function Dashboard() {
                     )}
                 </div>
 
-                {/* Dashboard Navigation Cards with Icons */}
                 <div className="dashboard-grid">
                     <div className="dashboard-card" onClick={() => navigate('/diagnosis')}>
                         <Stethoscope size={24} />
@@ -133,8 +200,8 @@ function Dashboard() {
                         <p>Get a personalized diagnosis based on your symptoms.</p>
                     </div>
                     <div className="dashboard-card" onClick={() => navigate("/medical-history")}>
-                         <h3>📚 Medical History</h3>
-                         <p>Review your past diagnoses and treatments.</p>
+                        <h3>📚 Medical History</h3>
+                        <p>Review your past diagnoses and treatments.</p>
                     </div>
                     <div className="dashboard-card" onClick={() => navigate('/medications')}>
                         <ClipboardCheck size={24} />
@@ -163,15 +230,59 @@ function Dashboard() {
                         <h3>Mood Analytics</h3>
                         <p>Visualize your mood trends over time.</p>
                     </div>
-
+                    <div className="dashboard-card" onClick={() => navigate("/symptom-tracker")}>
+                        <h3>🩺 Symptom Tracker</h3>
+                        <p>Track daily symptoms and view them on your calendar.</p>
+                    </div>
                 </div>
 
-                {/* ✅ Calendar */}
                 <div className="dashboard-calendar">
                     <h2><CalendarDays size={30} /> Calendar</h2>
-                    <Calendar onChange={setDate} value={date} />
+                    <Calendar
+                        onChange={(d) => {
+                            setDate(d);
+                            const stored = symptomLog[d.toDateString()] || [];
+                            setSelectedSymptoms(stored);
+                            setShowModal(true);
+                        }}
+                        value={date}
+                        tileClassName={tileClassName}
+                    />
                 </div>
             </div>
+
+            {showModal && (
+                <div className="symptom-modal">
+                    <div className="modal-content">
+                        <h3>📝 Symptoms for {date.toDateString()}</h3>
+                        <div className="symptom-options">
+                            {symptomOptions.map((symptom) => (
+                                <button
+                                    key={symptom}
+                                    className={selectedSymptoms.includes(symptom) ? "selected" : ""}
+                                    onClick={() =>
+                                        setSelectedSymptoms((prev) =>
+                                            prev.includes(symptom)
+                                                ? prev.filter((s) => s !== symptom)
+                                                : [...prev, symptom]
+                                        )
+                                    }
+                                >
+                                    {symptom}
+                                </button>
+                            ))}
+                        </div>
+                        <div className="modal-buttons">
+                            <button onClick={handleSaveSymptoms} className="save-button">💾 Save</button>
+                            {selectedSymptoms.length > 0 && (
+                                <button onClick={handleClearSymptoms} className="clear-button">🗑️ Clear Symptoms</button>
+                            )}
+                            <button className="close-button" onClick={() => setShowModal(false)}>❌ Close</button>
+                        </div>
+                        {message && <p className="status-message">{message}</p>}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
