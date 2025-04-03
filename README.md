@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Postman:** [https://web.postman.co/](https://web.postman.co/)
 - **Backend Start Command:** `node server.js`
 - **Frontend Start Command:** `npm start`
-- **Backend Model:** `python diagnosis_api.py & menstrual_tracker_api.py`
+- **Backend Model:** `python diagnosis_api.py & python menstrual_tracker_api.py`
 
 
 ---
