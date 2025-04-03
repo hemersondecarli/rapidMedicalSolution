@@ -13,6 +13,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Frontend Start Command:** `npm start`
 - **Backend Model:** `python diagnosis_api.py & menstrual_tracker_api.py`
 
+
+---
+## 🚀 New Features & Updates
+
+## [0.10.8]  
+### **Medical History Feature Added**
+### **Created Diagnosis History Model (`DiagnosisHistory.js`)**
+- Added new **MongoDB schema** to store user diagnosis history.
+- Fields include:
+  - `user_id`
+  - `diagnosis`
+  - `symptoms`
+  - `medication`
+  - `instructions`
+  - `date`
+- Ensures all diagnosis entries are timestamped.
+
+---
+
+### **Created Diagnosis Routes (`diagnosisRoutes.js`)**
+- Added **POST endpoint** to save diagnosis data after AI prediction.
+- Added **GET endpoint** to retrieve a user’s full diagnosis history.
+
+---
+
+### **Medical History Page (`MedicalHistory.js`)**
+- Fetches historical diagnosis data for the logged-in user.
+- Displays:
+  - Diagnosis
+  - Symptoms
+  - Medication
+  - Instructions
+  - Timestamp
+- Added fallback message when no history is found.
+
+---
+
+### **Connected Frontend Routing (`App.js`)**
+- Imported `MedicalHistory` component.
+- Created a new route: `/medical-history`.
+
+---
+
+### **Updated Dashboard Navigation (`Dashboard.js`)**
+- Replaced unused “Place Orders” tile.
+- Added new navigation tile for “📚 Medical History”.
+
+---
+
+### **Updated Diagnosis Page (`Diagnosis.js`)**
+- Added POST request to save each diagnosis to database.
+- Ensures all AI diagnosis results are tracked in history.
+
 ---
 ## 🚀 New Features & Updates
 
