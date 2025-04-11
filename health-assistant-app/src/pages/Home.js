@@ -6,20 +6,16 @@ import '../styles/Home.css';
 function Home() {
     const navigate = useNavigate();
 
-    const goToLogin = () => {
-        navigate('/login');
-    };
-
-    const goToRegistration = () => {
-        navigate('/Registration'); //route for the Create Account page
-    };
-
     return (
         <div className="home-container">
-            <h1>Welcome to the Health Assistant App</h1>
-            <p>Get started by logging in or creating an account.</p>
-            <button onClick={goToLogin} className="home-button">Already a User?</button>
-            <button onClick={goToRegistration} className="home-button">Create Account</button>
+            <div className="home-card">
+                <h1 className="home-title">👋 Welcome to Health Assistant</h1>
+                <p className="home-subtitle">Track your health, get personalized insights, and stay on top of your well-being.</p>
+                <div className="home-buttons">
+                    <button onClick={() => navigate('/login')} className="home-button login">Already a User?</button>
+                    <button onClick={() => navigate('/Registration')} className="home-button register">Create Account</button>
+                </div>
+            </div>
         </div>
     );
 }
