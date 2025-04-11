@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Registration.css';
-import api from '../services/api'; // Axios instance
+import api from '../services/api';
 
 function Registration() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -46,69 +48,71 @@ function Registration() {
     };
 
     return (
-        <div className="create-account-container">
-            <h2>Create Account</h2>
-            <form id="RegistrationForm" onSubmit={handleSubmit}>
-                <label htmlFor="name">Full Name:</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Enter your full name"
-                    required
-                />
+        <div className="register-wrapper">
+            <div className="register-card">
+                <h2>Create Your Account</h2>
+                <p>Complete the form below to get started with your health assistant.</p>
 
-                <label htmlFor="email">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Enter your email"
-                    required
-                />
+                <form onSubmit={handleSubmit}>
+                    <label>Full Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="John Doe"
+                        required
+                    />
 
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="Enter your password"
-                    required
-                />
+                    <label>Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="john@example.com"
+                        required
+                    />
 
-                <label htmlFor="confirmPassword">Confirm Password:</label>
-                <input
-                    type="password"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    placeholder="Confirm your password"
-                    required
-                />
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        placeholder="Enter a password"
+                        required
+                    />
 
-                <label htmlFor="gp">Enter your GP:</label>
-                <input
-                    type="text"
-                    id="gp"
-                    name="gp"
-                    value={formData.gp}
-                    onChange={handleChange}
-                    placeholder="Enter your general practitioner's name"
-                    required
-                />
+                    <label>Confirm Password</label>
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        placeholder="Repeat your password"
+                        required
+                    />
 
-                <button type="submit" className="submit-button">Create Account</button>
-            </form>
+                    <label>GP Name</label>
+                    <input
+                        type="text"
+                        name="gp"
+                        value={formData.gp}
+                        onChange={handleChange}
+                        placeholder="Dr. Smith"
+                        required
+                    />
 
-            {message && <p style={{ color: 'green' }}>{message}</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+                    <button type="submit" className="btn-primary">Create Account</button>
+                    <button type="button" className="btn-secondary" onClick={() => navigate('/')}>
+                        ← Back to Home
+                    </button>
+                </form>
+
+                {message && <p className="success-msg">{message}</p>}
+                {error && <p className="error-msg">{error}</p>}
+            </div>
         </div>
     );
 }
