@@ -29,10 +29,10 @@ function Login() {
             const response = await api.post('/users/login', formData);
             setMessage(response.data.message);
 
-            // Store user details in localStorage
+              // Store user details in localStorage
             localStorage.setItem('user', JSON.stringify(response.data.user));
-
-            // ✅ Redirect user to Mood Selection BEFORE going to Dashboard
+            
+             // Redirect user to Mood Selection BEFORE going to Dashboard
             navigate('/mood-selection');
         } catch (error) {
             console.error('Error during login:', error.response?.data || error.message);
@@ -42,36 +42,48 @@ function Login() {
 
     return (
         <div className="login-container">
-            <h2>Login</h2>
-            <form id="LoginForm" onSubmit={handleSubmit}>
-                <label htmlFor="email">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Enter your email"
-                    required
-                />
+            <div className="login-box">
+                <h2 className="login-title">🔐 Welcome Back</h2>
+                <p className="login-subtitle">Log in to access your health assistant dashboard.</p>
 
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="Enter your password"
-                    required
-                />
+                <form id="LoginForm" onSubmit={handleSubmit}>
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Enter your email"
+                        required
+                    />
 
-                <button type="submit" className="submit-button">Login</button>
-            </form>
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        placeholder="Enter your password"
+                        required
+                    />
 
-            {/* Display messages */}
-            {message && <p style={{ color: 'green' }}>{message}</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+                    <button type="submit" className="submit-button">Login</button>
+                </form>
+
+                {/* Display messages */}
+                {message && <p className="login-message success">{message}</p>}
+                {error && <p className="login-message error">{error}</p>}
+
+              
+                <button
+                    className="go-back-button"
+                    onClick={() => navigate('/')}
+                >
+                    ⬅️ Go Back to Home
+                </button>
+            </div>
         </div>
     );
 }
