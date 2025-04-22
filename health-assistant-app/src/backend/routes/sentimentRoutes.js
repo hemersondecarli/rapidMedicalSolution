@@ -2,7 +2,7 @@ const express = require('express');
 const Sentiment = require('../models/Sentiment'); // Ensure this model exists
 const router = express.Router();
 
-// ✅ Save Mood Selection for a User
+// Save The Mood selection for a user
 router.post('/record', async (req, res) => {
     try {
         const { userId, mood } = req.body;
