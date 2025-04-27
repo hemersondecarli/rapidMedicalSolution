@@ -12,6 +12,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Backend Start Command:** `node server.js`
 - **Frontend Start Command:** `npm start`
 - **Backend Model:** `python diagnosis_api.py & python menstrual_tracker_api.py`
+---
+## Installation Instructions
+
+### Backend Setup
+- Clone the GitHub repository
+- Navigate to the backend folder: cd backend
+- Install required packages: npm install
+- Start the server: node server.js
+
+### Frontend Setup
+- Navigate to the health-assistant-app folder: cd health-assistant-app
+- Install React dependencies: npm install
+- Start the development server: npm start
+
+### Python Backend (Machine Learning APIs)
+- Navigate to the ML backend folder: cd backend
+- Install Python dependencies
+- Start the Flask servers:
+  - Run: python diagnosis_api.py
+  - Run: python menstrual_tracker_api.py
+
+### A.2.4 Environment Variables Setup
+- If the .env file is missing, create one inside the backend directory with:
+MONGO_URI=mongodb+srv://userdb:0QKRJTF7vUkV8jqm@cluster0.4ygca.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+PORT=5001
+
 
 ---
 ## 🚀 New Features & Updates
